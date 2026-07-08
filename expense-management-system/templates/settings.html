@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% set page_title = "Settings" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h2>Account Settings</h2>
+
+    <p>
+        Manage your profile and account security.
+    </p>
+
+</div>
+
+<div class="settings-grid">
+
+    <!-- Username -->
+
+    <div class="content-card">
+
+        <h4>
+            <i class="bi bi-person-fill"></i>
+            Profile
+        </h4>
+
+        <form method="POST" action="/settings">
+
+            <input type="hidden" name="form_type" value="username">
+
+            <div class="mb-3">
+
+                <label>Username</label>
+
+                <input
+                    type="text"
+                    name="username"
+                    class="form-control"
+                    value="{{ user.username }}"
+                    minlength="4"
+                    required>
+
+            </div>
+
+            <button class="btn btn-primary">
+                Save Username
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- Password -->
+
+    <div class="content-card">
+
+        <h4>
+            <i class="bi bi-shield-lock-fill"></i>
+            Change Password
+        </h4>
+
+        <form method="POST" action="/settings">
+
+            <input type="hidden" name="form_type" value="password">
+
+            <div class="mb-3">
+
+                <label>Current Password</label>
+
+                <input
+                    type="password"
+                    name="current_password"
+                    class="form-control"
+                    required>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label>New Password</label>
+
+                <input
+                    type="password"
+                    name="new_password"
+                    class="form-control"
+                    minlength="8"
+                    required>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label>Confirm New Password</label>
+
+                <input
+                    type="password"
+                    name="confirm_password"
+                    class="form-control"
+                    minlength="8"
+                    required>
+
+            </div>
+
+            <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">
+                Must be at least 8 characters and include an uppercase letter,
+                a lowercase letter, a number, and a special character.
+            </p>
+
+            <button class="btn btn-primary">
+                Update Password
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

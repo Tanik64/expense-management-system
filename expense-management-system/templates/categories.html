@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+{% set page_title = "Categories" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h2>Expense Categories</h2>
+
+    <p>
+        Organize your expenses into different categories.
+    </p>
+
+</div>
+
+<div class="toolbar">
+
+    <div class="search-box">
+
+        <i class="bi bi-search"></i>
+
+        <input
+        placeholder="Search category...">
+
+    </div>
+
+    <a href="/category/add"
+       class="btn btn-primary">
+
+        <i class="bi bi-plus-lg"></i>
+
+        Add Category
+
+    </a>
+
+</div>
+
+{% if categories %}
+
+<div class="category-grid">
+
+{% for category in categories %}
+
+<div class="category-card">
+
+{% if category.category_name=="Food" %}
+
+<i class="bi bi-cup-hot-fill"></i>
+
+{% elif category.category_name=="Transport" %}
+
+<i class="bi bi-car-front-fill"></i>
+
+{% elif category.category_name=="Shopping" %}
+
+<i class="bi bi-bag-fill"></i>
+
+{% elif category.category_name=="Travel" %}
+
+<i class="bi bi-airplane-fill"></i>
+
+{% elif category.category_name=="Rent" %}
+
+<i class="bi bi-house-fill"></i>
+
+{% elif category.category_name=="Utilities" %}
+
+<i class="bi bi-lightning-fill"></i>
+
+{% elif category.category_name=="Entertainment" %}
+
+<i class="bi bi-controller"></i>
+
+{% elif category.category_name=="Medical" %}
+
+<i class="bi bi-heart-pulse-fill"></i>
+
+{% else %}
+
+<i class="bi bi-grid"></i>
+
+{% endif %}
+
+<h4>
+
+{{ category.category_name }}
+
+</h4>
+
+<p>
+
+Expense Category
+
+</p>
+
+<div style="margin-top:20px;">
+
+<a href="/category/edit/{{ category.category_id }}"
+class="btn btn-warning">
+
+Edit
+
+</a>
+
+<a href="/category/delete/{{ category.category_id }}"
+class="btn btn-danger"
+onclick="return confirm('Delete Category?')">
+
+Delete
+
+</a>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="content-card"
+style="text-align:center;padding:60px;">
+
+<i class="bi bi-grid-3x3-gap-fill"
+style="font-size:70px;color:#3B82F6;"></i>
+
+<h2 style="margin-top:20px;">
+
+No Categories
+
+</h2>
+
+<p style="color:#94A3B8;">
+
+Create your first expense category.
+
+</p>
+
+<br>
+
+<a href="/category/add"
+class="btn btn-primary">
+
+Add Category
+
+</a>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

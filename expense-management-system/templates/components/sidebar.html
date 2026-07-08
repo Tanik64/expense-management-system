@@ -1,0 +1,52 @@
+<div class="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            💸
+        </div>
+
+        <div>
+
+            <h2>ExpenseFlow</h2>
+
+            <small>Personal Finance</small>
+
+        </div>
+
+    </div>
+
+    <div class="menu">
+
+        <a href="/" class="{% if request.path=='/' %}active{% endif %}">
+            <i class="bi bi-grid"></i>
+            Dashboard
+        </a>
+
+        <a href="/expenses"
+           class="{% if request.path.startswith('/expense') or request.path=='/expenses' %}active{% endif %}">
+            <i class="bi bi-wallet2"></i>
+            Expenses
+        </a>
+
+        <a href="/travel"
+           class="{% if request.path=='/travel' %}active{% endif %}">
+            <i class="bi bi-airplane"></i>
+            Travel
+        </a>
+
+        <a href="/categories"
+           class="{% if request.path=='/categories' %}active{% endif %}">
+            <i class="bi bi-grid-3x3-gap"></i>
+            Categories
+        </a>
+
+        <a href="/reports"
+           class="{% if request.path=='/reports' %}active{% endif %}">
+            <i class="bi bi-bar-chart"></i>
+            Reports
+        </a>
+
+    </div>
+
+</div>

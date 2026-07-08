@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% set page_title = "Reports" %}
+
+{% block content %}
+
+<div class="page-card">
+
+    <div class="page-header">
+
+        <h2>
+            Expense Reports
+        </h2>
+
+        <p>
+            Financial overview and analytics
+        </p>
+
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+
+            <div class="dashboard-card">
+
+                <h6>Total Expenses</h6>
+
+                <h2>
+                    ₹{{ total }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="content-card">
+
+        <h4>
+            Expenses by Category
+        </h4>
+
+        <table class="table custom-table">
+
+            <thead>
+
+                <tr>
+                    <th>Category</th>
+                    <th>Total</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for item in categories %}
+
+                <tr>
+
+                    <td>
+                        {{ item.category }}
+                    </td>
+
+                    <td>
+                        ₹{{ item.total }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <br>
+
+    <div class="content-card">
+
+        <h4>
+            Monthly Expenses
+        </h4>
+
+        <table class="table custom-table">
+
+            <thead>
+
+                <tr>
+                    <th>Month</th>
+                    <th>Total</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for item in monthly %}
+
+                <tr>
+
+                    <td>
+                        {{ item.month }}
+                    </td>
+
+                    <td>
+                        ₹{{ item.total }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}
