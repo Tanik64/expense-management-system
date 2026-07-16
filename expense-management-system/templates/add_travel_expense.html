@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% set page_title = "Add Travel Expense" %}
+
+{% block content %}
+
+<div class="page-card">
+
+    <div class="page-header">
+
+        <h2>
+            Add Travel Expense
+        </h2>
+
+        <p>
+            Record an expense for this trip
+        </p>
+
+    </div>
+
+    {% if trip and trip.start_date and trip.end_date %}
+
+    <div class="alert alert-success" style="background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE;">
+
+        <i class="bi bi-info-circle"></i>
+
+        Expense dates between <strong>{{ window_days }} days before {{ trip.start_date }}</strong>
+        and <strong>{{ window_days }} days after {{ trip.end_date }}</strong> are added right away.
+        Anything outside that range is sent to the admin for approval first.
+
+    </div>
+
+    {% endif %}
+
+    <form method="POST">
+
+        <div class="mb-3">
+
+            <label>Category</label>
+
+            <select
+                name="category"
+                class="form-control">
+
+                <option>Flight</option>
+                <option>Hotel</option>
+                <option>Taxi</option>
+                <option>Fuel</option>
+                <option>Food</option>
+                <option>Bus</option>
+                <option>Train</option>
+                <option>Parking</option>
+                <option>Toll</option>
+                <option>Local Transport</option>
+
+            </select>
+
+        </div>
+
+        <div class="mb-3">
+
+            <label>Amount</label>
+
+            <input
+                type="number"
+                step="0.01"
+                name="amount"
+                class="form-control">
+
+        </div>
+
+        <div class="mb-3">
+
+            <label>Date</label>
+
+            <input
+                type="date"
+                name="expense_date"
+                class="form-control">
+
+        </div>
+
+        <div class="mb-3">
+
+            <label>Description</label>
+
+            <textarea
+                name="description"
+                class="form-control">
+            </textarea>
+
+        </div>
+
+        <button
+            type="submit"
+            class="btn btn-success">
+
+            Add Expense
+
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

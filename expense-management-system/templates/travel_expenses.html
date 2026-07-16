@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+
+{% set page_title = "Travel Expenses" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h2>
+        {{ trip.destination }}
+    </h2>
+
+    <p>
+        Travel expense tracking
+    </p>
+
+</div>
+
+<div class="toolbar">
+
+    <div>
+
+        <h3>
+
+            Total:
+            ₹{{ total }}
+
+        </h3>
+
+    </div>
+
+    <a
+    href="/travel/{{ trip.travel_id }}/expense/add"
+    class="btn btn-success">
+
+        <i class="bi bi-plus-lg"></i>
+
+        Add Expense
+
+    </a>
+
+</div>
+
+{% if expenses %}
+
+<div class="table-responsive">
+
+<table class="table">
+
+    <thead>
+
+        <tr>
+
+            <th>Category</th>
+
+            <th>Amount</th>
+
+            <th>Date</th>
+
+            <th>Description</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for expense in expenses %}
+
+        <tr>
+
+            <td>
+                {{ expense.category }}
+            </td>
+
+            <td>
+                ₹{{ expense.amount }}
+            </td>
+
+            <td>
+                {{ expense.expense_date }}
+            </td>
+
+            <td>
+                {{ expense.description }}
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+</div>
+
+{% else %}
+
+<div
+class="content-card"
+style="
+text-align:center;
+padding:60px;">
+
+    <i
+    class="bi bi-airplane-fill"
+    style="
+    font-size:70px;
+    color:#3B82F6;"></i>
+
+    <h2>
+
+        No Travel Expenses
+
+    </h2>
+
+    <p
+    style="color:#94A3B8;">
+
+        Add your first travel expense.
+
+    </p>
+
+</div>
+
+{% endif %}
+
+{% if requests %}
+
+<div class="content-card" style="margin-top:24px;">
+
+    <h4>
+        <i class="bi bi-envelope-paper-fill"></i>
+        Expenses Awaiting Admin Approval
+    </h4>
+
+    <div class="table-responsive">
+
+    <table class="table">
+
+        <thead>
+
+            <tr>
+
+                <th>Category</th>
+
+                <th>Amount</th>
+
+                <th>Date</th>
+
+                <th>Description</th>
+
+                <th>Status</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for req in requests %}
+
+            <tr>
+
+                <td>
+                    {{ req.category }}
+                </td>
+
+                <td>
+                    ₹{{ req.amount }}
+                </td>
+
+                <td>
+                    {{ req.expense_date }}
+                </td>
+
+                <td>
+                    {{ req.description }}
+                </td>
+
+                <td>
+
+                    {% if req.status == "Approved" %}
+                        <span class="badge badge-approved">Approved</span>
+                    {% elif req.status == "Rejected" %}
+                        <span class="badge badge-rejected">Rejected</span>
+                    {% else %}
+                        <span class="badge badge-pending">Pending</span>
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

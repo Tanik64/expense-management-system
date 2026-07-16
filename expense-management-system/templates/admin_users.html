@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% set page_title = "Registered Users" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h2>Registered Users</h2>
+
+    <p>
+        Everyone who has signed up for ExpenseFlow.
+    </p>
+
+</div>
+
+{% if users %}
+
+<div class="table-responsive">
+
+<table class="table">
+
+    <thead>
+
+        <tr>
+
+            <th>ID</th>
+
+            <th>Username</th>
+
+            <th>Role</th>
+
+            <th>Registered On</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for u in users %}
+
+        <tr>
+
+            <td>
+                {{ u.user_id }}
+            </td>
+
+            <td>
+                {{ u.username }}
+            </td>
+
+            <td>
+
+                {% if u.is_admin %}
+
+                    <span class="badge badge-approved">
+                        Admin
+                    </span>
+
+                {% else %}
+
+                    <span class="badge badge-pending">
+                        User
+                    </span>
+
+                {% endif %}
+
+            </td>
+
+            <td>
+                {{ u.created_at }}
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+</div>
+
+{% else %}
+
+<div
+class="content-card"
+style="
+text-align:center;
+padding:60px;">
+
+    <i
+    class="bi bi-people-fill"
+    style="
+    font-size:70px;
+    color:#3B82F6;"></i>
+
+    <h2 style="margin-top:20px;">
+        No Users Yet
+    </h2>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

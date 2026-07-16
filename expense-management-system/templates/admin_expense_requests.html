@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+
+{% set page_title = "Expense Requests" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h2>Expense Requests</h2>
+
+    <p>
+        Trip expenses that fall outside the 20-day admin-controlled
+        window and need your approval before they're added.
+    </p>
+
+</div>
+
+{% if requests %}
+
+<div class="table-responsive">
+
+<table class="table">
+
+    <thead>
+
+        <tr>
+
+            <th>User</th>
+
+            <th>Trip</th>
+
+            <th>Trip Dates</th>
+
+            <th>Category</th>
+
+            <th>Amount</th>
+
+            <th>Expense Date</th>
+
+            <th>Description</th>
+
+            <th>Status</th>
+
+            <th>Actions</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for req in requests %}
+
+        <tr>
+
+            <td>
+                {{ req.username }}
+            </td>
+
+            <td>
+                {{ req.destination }}
+            </td>
+
+            <td>
+                {{ req.start_date }} - {{ req.end_date }}
+            </td>
+
+            <td>
+                {{ req.category }}
+            </td>
+
+            <td>
+                ₹{{ req.amount }}
+            </td>
+
+            <td>
+                {{ req.expense_date }}
+            </td>
+
+            <td>
+                {{ req.description }}
+            </td>
+
+            <td>
+
+                {% if req.status == "Approved" %}
+
+                    <span class="badge badge-approved">
+                        Approved
+                    </span>
+
+                {% elif req.status == "Rejected" %}
+
+                    <span class="badge badge-rejected">
+                        Rejected
+                    </span>
+
+                {% else %}
+
+                    <span class="badge badge-pending">
+                        Pending
+                    </span>
+
+                {% endif %}
+
+            </td>
+
+            <td>
+
+                {% if req.status == "Pending" %}
+
+                <div style="display:flex;gap:10px;flex-wrap:wrap;">
+
+                    <form method="POST" action="/admin/expense-requests/{{ req.request_id }}/approve">
+                        <button type="submit" class="btn btn-success">
+                            Approve
+                        </button>
+                    </form>
+
+                    <form method="POST" action="/admin/expense-requests/{{ req.request_id }}/reject">
+                        <button
+                            type="submit"
+                            class="btn btn-danger"
+                            onclick="return confirm('Reject this expense request?')">
+                            Reject
+                        </button>
+                    </form>
+
+                </div>
+
+                {% else %}
+
+                    <span style="color:var(--muted);">
+                        Reviewed
+                    </span>
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+</div>
+
+{% else %}
+
+<div
+class="content-card"
+style="
+text-align:center;
+padding:60px;">
+
+    <i
+    class="bi bi-envelope-paper-fill"
+    style="
+    font-size:70px;
+    color:#3B82F6;"></i>
+
+    <h2 style="margin-top:20px;">
+        No Expense Requests
+    </h2>
+
+    <p style="color:#94A3B8;">
+        Requests will show up here when a user tries to add a trip
+        expense outside the allowed date window.
+    </p>
+
+</div>
+
+{% endif %}
+
+{% endblock %}
